@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {selectUser} from '../actions/index'
-
+import {selectRoomMate} from '../actions/selected-room-mate'
 
 class UserList extends Component {
 
@@ -11,7 +11,7 @@ class UserList extends Component {
             return (
                 <li
                     key={user.id}
-                    onClick={() => this.props.selectUser(user)}
+                    onClick={() => this.props.selectUser(user,'second')}
                 >
                     {user.first} {user.last}
                 </li>
@@ -19,10 +19,24 @@ class UserList extends Component {
         });
     }
 
+    renderRoomMate(){
+        return this.props.roommates.map((roommate) => {
+        return (
+                 <li
+                 key={roommate.id}
+                 onClick={() => this.props.selectRoomMate(roommate,'third')}>
+                    {roommate.name}
+                </li>
+                );
+
+        })
+    }
+
     render() {
         return (
             <ul>
                 {this.renderList()}
+                {this.renderRoomMate()}
             </ul>
         );
     }
@@ -33,14 +47,15 @@ class UserList extends Component {
 //      > whenever state changes, the UserList will automatically re-render
 function mapStateToProps(state) {
     return {
-        users: state.users
+        users: state.users,
+        roommates: state.roommates
     };
 }
 
 // Get actions and pass them as props to to UserList
 //      > now UserList has this.props.selectUser
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({selectUser: selectUser}, dispatch);
+    return bindActionCreators({selectUser: selectUser,selectRoomMate: selectRoomMate}, dispatch);
 }
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container

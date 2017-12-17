@@ -10,10 +10,7 @@ import allReducers from './reducers';
 import App from './components/App';
 
 const logger = createLogger();
-const store = createStore(
-    allReducers,
-    applyMiddleware(thunk, promise, logger)
-);
+const store = createStore(allReducers);
 
 ReactDOM.render(
     <Provider store={store}>
