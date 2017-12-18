@@ -7,7 +7,6 @@ require('../../scss/style.scss');
 
 class App extends Component {
     render() {
-    console.log("-----",this.props.toogle)
         switch (this.props.toogle) {
                     case "first":
                         return (
@@ -44,7 +43,6 @@ class App extends Component {
 function mapStateToProps(state) {
     return {
         toogle : state.activeUser.toogle
-//        toogle : state.activeRoomMate.toogle
     };
 }
 
